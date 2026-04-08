@@ -2,8 +2,16 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Tracker Rekrutmen — Flyman Nathalie</title>
+<script>
+// Request full height from parent (Google Sites)
+try {
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'resize', height: window.screen.height }, '*');
+  }
+} catch(e) {}
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
@@ -243,32 +251,12 @@ body.role-superuser .superuser-only { display: flex !important; }
 .tag{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:500}
 
 /* ── FULLSCREEN / IFRAME FIX ── */
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-/* Remove white borders when embedded in iframe */
-.app {
-  position: absolute;
-  inset: 0;
-  height: 100%;
-  width: 100%;
-}
-#login-screen {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-#main-app {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; width: 100%; }
+body { height: 100%; width: 100%; overflow: hidden; }
+.app { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; }
+#login-screen { position: fixed; inset: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; }
+#main-app { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; }
 </style>
 </head>
 <body>
@@ -776,11 +764,11 @@ html, body {
         <colgroup><col style="width:32%"><col style="width:16%"><col style="width:14%"><col style="width:38%"></colgroup>
         <thead><tr><th>Email</th><th>Peran</th><th>Status</th><th>Deskripsi Akses</th></tr></thead>
         <tbody>
-          <tr><td>admin@flymannt.com</td><td><span class="badge b-brand">Admin</span></td><td><span class="badge b-success">Aktif</span></td><td>Akses penuh + konfigurasi sistem</td></tr>
-          <tr><td>rina.hr@flymannt.com</td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
-          <tr><td>dian.hr@flymannt.com</td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
-          <tr><td>mgr.tech@flymannt.com</td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
-          <tr><td>mgr.mktg@flymannt.com</td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
+          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82e3e6efebecc2e4eefbefe3ececf6ace1edef">[email&#160;protected]</a></td><td><span class="badge b-brand">Admin</span></td><td><span class="badge b-success">Aktif</span></td><td>Akses penuh + konfigurasi sistem</td></tr>
+          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7a5beb9b6f9bfa597b1bbaebab6b9b9a3f9b4b8ba">[email&#160;protected]</a></td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
+          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc9c4ccc383c5dfedcbc1d4c0ccc3c3d983cec2c0">[email&#160;protected]</a></td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
+          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="640903164a1001070c2402081d09050a0a104a070b09">[email&#160;protected]</a></td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
+          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="375a5045195a5c435077515b4e5a565959431954585a">[email&#160;protected]</a></td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
         </tbody>
       </table>
     </div>
@@ -909,10 +897,10 @@ html, body {
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── KONFIGUR
 // ── KONFIGURASI API ──
-const API_URL = 'https://script.google.com/macros/s/AKfycbzaACFC85J0kL12tbH1gt5cNJH29Ligfym3s7SGYK5cm6yUOolio8KNPzDo2nBxY3JO/exec';
+const API_URL = 'GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_ANDA';
 
 // ── USER MANAGEMENT ──
 var CURRENT_USER = null;
@@ -1497,30 +1485,4 @@ function saveNewCandidate() {
   closeModal('modal-add-candidate');
   // Update sidebar badge
   var badge = document.getElementById('sb-cand-count');
-  if (badge) badge.textContent = CANDIDATE_DATA.length;
-  // Refresh table & dashboard
-  navTo('candidates', document.querySelector('.sb-item:nth-child(5)'));
-  renderCandidateTable(CANDIDATE_DATA);
-  refreshDashboard();
-  showToast(newCand.nama + ' berhasil ditambahkan ke pipeline');
-}
-
-// Init on load — cek session
-document.addEventListener('DOMContentLoaded', function() {
-  var saved = sessionStorage.getItem('fn_user');
-  if (saved) {
-    try {
-      CURRENT_USER = JSON.parse(saved);
-      showApp();
-    } catch(e) {
-      sessionStorage.removeItem('fn_user');
-    }
-  }
-  // else: login screen stays visible (default)
-  // Init candidate table
-  initCandidateTable();
-});
-</script>
-</div><!-- /main-app -->
-</body>
-</html>
+  if (badge)
