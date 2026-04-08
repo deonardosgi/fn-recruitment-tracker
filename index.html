@@ -2,16 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tracker Rekrutmen — Flyman Nathalie</title>
-<script>
-// Request full height from parent (Google Sites)
-try {
-  if (window.parent !== window) {
-    window.parent.postMessage({ type: 'resize', height: window.screen.height }, '*');
-  }
-} catch(e) {}
-</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 
@@ -251,12 +243,32 @@ body.role-superuser .superuser-only { display: flex !important; }
 .tag{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:500}
 
 /* ── FULLSCREEN / IFRAME FIX ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { height: 100%; width: 100%; }
-body { height: 100%; width: 100%; overflow: hidden; }
-.app { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; }
-#login-screen { position: fixed; inset: 0; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 9999; }
-#main-app { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; }
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+/* Remove white borders when embedded in iframe */
+.app {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+#login-screen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+#main-app {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>
 </head>
 <body>
@@ -525,53 +537,7 @@ body { height: 100%; width: 100%; overflow: hidden; }
             <th>Kandidat</th><th>Posisi</th><th>Tahap</th><th>Status</th><th>SLA</th><th>Dok.</th><th>Diperbarui</th><th>Aksi</th>
           </tr>
         </thead>
-        <tbody id="cand-tbody">
-          <tr class="tbl-row" onclick="openDetail('Rina Kusuma','Staff Marketing','LinkedIn','3 tahun','PT Sinar Mas','Perempuan','Senior Staff')">
-            <td><div class="td-name">Rina Kusuma</div><div class="td-sub">P &bull; 3 thn &bull; PT Sinar Mas</div></td>
-            <td>Staff Marketing</td><td>Wawancara HR</td>
-            <td><span class="badge b-progress">Sedang Proses</span></td>
-            <td><span class="badge b-late">Terlambat</span></td>
-            <td><span class="badge b-success">2 file</span></td>
-            <td style="font-size:10px;color:var(--tx3)">05 Apr 2025<br>14:32 WIB</td>
-            <td><button class="btn btn-xs" onclick="event.stopPropagation();openDetail('Rina Kusuma','Staff Marketing','LinkedIn','3 tahun','PT Sinar Mas','Perempuan','Senior Staff')">Detail</button></td>
-          </tr>
-          <tr class="tbl-row" onclick="openDetail('Budi Santoso','Senior Engineer','Referral','6 tahun','Tokopedia','Laki-laki','Senior Staff')">
-            <td><div class="td-name">Budi Santoso</div><div class="td-sub">L &bull; 6 thn &bull; Tokopedia</div></td>
-            <td>Senior Engineer</td><td>Wawancara User 2</td>
-            <td><span class="badge b-progress">Sedang Proses</span></td>
-            <td><span class="badge b-ontrack">Tepat Waktu</span></td>
-            <td><span class="badge b-success">1 file</span></td>
-            <td style="font-size:10px;color:var(--tx3)">04 Apr 2025<br>09:15 WIB</td>
-            <td><button class="btn btn-xs" onclick="event.stopPropagation();openDetail('Budi Santoso','Senior Engineer','Referral','6 tahun','Tokopedia','Laki-laki','Senior Staff')">Detail</button></td>
-          </tr>
-          <tr class="tbl-row" onclick="openDetail('Dewi Rahayu','Finance Analyst','Jobstreet','4 tahun','BCA','Perempuan','Supervisor')">
-            <td><div class="td-name">Dewi Rahayu</div><div class="td-sub">P &bull; 4 thn &bull; BCA</div></td>
-            <td>Finance Analyst</td><td>Penawaran</td>
-            <td><span class="badge b-progress">Sedang Proses</span></td>
-            <td><span class="badge b-ontrack">Tepat Waktu</span></td>
-            <td><span class="badge b-success">3 file</span></td>
-            <td style="font-size:10px;color:var(--tx3)">03 Apr 2025<br>11:47 WIB</td>
-            <td><button class="btn btn-xs" onclick="event.stopPropagation();openDetail('Dewi Rahayu','Finance Analyst','Jobstreet','4 tahun','BCA','Perempuan','Supervisor')">Detail</button></td>
-          </tr>
-          <tr class="tbl-row">
-            <td><div class="td-name">Ahmad Fauzi</div><div class="td-sub">L &bull; 1 thn &bull; —</div></td>
-            <td>Staff Marketing</td><td>CV Screening</td>
-            <td><span class="badge b-failed">Gagal</span></td>
-            <td><span class="badge b-ontrack">Tepat Waktu</span></td>
-            <td><span class="badge b-gray">1 file</span></td>
-            <td style="font-size:10px;color:var(--tx3)">02 Apr 2025<br>08:00 WIB</td>
-            <td><button class="btn btn-xs">Detail</button></td>
-          </tr>
-          <tr class="tbl-row">
-            <td><div class="td-name">Siti Nurdiana</div><div class="td-sub">P &bull; 5 thn &bull; Unilever</div></td>
-            <td>Ops Specialist</td><td>Onboarding</td>
-            <td><span class="badge b-hired">Diterima</span></td>
-            <td><span class="badge b-ontrack">Tepat Waktu</span></td>
-            <td><span class="badge b-success">4 file</span></td>
-            <td style="font-size:10px;color:var(--tx3)">01 Apr 2025<br>10:20 WIB</td>
-            <td><button class="btn btn-xs">Detail</button></td>
-          </tr>
-        </tbody>
+        <tbody id="cand-tbody"></tbody>
       </table>
     </div>
   </div>
@@ -764,11 +730,11 @@ body { height: 100%; width: 100%; overflow: hidden; }
         <colgroup><col style="width:32%"><col style="width:16%"><col style="width:14%"><col style="width:38%"></colgroup>
         <thead><tr><th>Email</th><th>Peran</th><th>Status</th><th>Deskripsi Akses</th></tr></thead>
         <tbody>
-          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82e3e6efebecc2e4eefbefe3ececf6ace1edef">[email&#160;protected]</a></td><td><span class="badge b-brand">Admin</span></td><td><span class="badge b-success">Aktif</span></td><td>Akses penuh + konfigurasi sistem</td></tr>
-          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d7a5beb9b6f9bfa597b1bbaebab6b9b9a3f9b4b8ba">[email&#160;protected]</a></td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
-          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="adc9c4ccc383c5dfedcbc1d4c0ccc3c3d983cec2c0">[email&#160;protected]</a></td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
-          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="640903164a1001070c2402081d09050a0a104a070b09">[email&#160;protected]</a></td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
-          <tr><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="375a5045195a5c435077515b4e5a565959431954585a">[email&#160;protected]</a></td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
+          <tr><td>admin@flymannt.com</td><td><span class="badge b-brand">Admin</span></td><td><span class="badge b-success">Aktif</span></td><td>Akses penuh + konfigurasi sistem</td></tr>
+          <tr><td>rina.hr@flymannt.com</td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
+          <tr><td>dian.hr@flymannt.com</td><td><span class="badge b-progress">HR</span></td><td><span class="badge b-success">Aktif</span></td><td>Tambah, ubah, lihat semua kandidat</td></tr>
+          <tr><td>mgr.tech@flymannt.com</td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
+          <tr><td>mgr.mktg@flymannt.com</td><td><span class="badge b-gray">Pemantau</span></td><td><span class="badge b-success">Aktif</span></td><td>Lihat saja (read only)</td></tr>
         </tbody>
       </table>
     </div>
@@ -897,592 +863,641 @@ body { height: 100%; width: 100%; overflow: hidden; }
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── KONFIGUR
-// ── KONFIGURASI API ──
-const API_URL = 'GANTI_DENGAN_URL_GOOGLE_APPS_SCRIPT_ANDA';
 
-// ── USER MANAGEMENT ──
+<!-- MODAL: KONFIRMASI KELUAR -->
+<div class="modal-overlay hidden" id="modal-confirm-logout">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-head">
+      <div class="modal-title">Konfirmasi Keluar</div>
+      <button class="modal-close" onclick="closeModal('modal-confirm-logout')">&#215;</button>
+    </div>
+    <div class="modal-body" style="padding:20px">
+      <div style="display:flex;align-items:flex-start;gap:14px">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--fcl);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M10 6v4M10 14h.01" stroke="var(--fc)" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="10" r="8.5" stroke="var(--fc)" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:6px">Yakin ingin keluar?</div>
+          <div style="font-size:12px;color:var(--tx2)">Anda akan diarahkan kembali ke halaman login.</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-sm" onclick="closeModal('modal-confirm-logout')">Batal</button>
+      <button class="btn btn-sm" onclick="doLogoutConfirmed()" style="background:var(--fc);color:#fff;border-color:var(--fc)">Ya, Keluar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var API_URL = 'https://script.google.com/macros/s/AKfycbzaACFC85J0kL12tbH1gt5cNJH29Ligfym3s7SGYK5cm6yUOolio8KNPzDo2nBxY3JO/exec';
 var CURRENT_USER = null;
 
-// Demo user database (di produksi: validasi via Google Apps Script)
-const DEMO_USERS = [
-  { email: 'superadmin@flymannt.com', password: 'admin123',  nama: 'Super Admin',   role: 'superuser' },
-  { email: 'rina.hr@flymannt.com',    password: 'hr123',     nama: 'Rina Kusuma',   role: 'hr' },
-  { email: 'viewer@flymannt.com',     password: 'view123',   nama: 'Hiring Manager', role: 'viewer' },
+var DEMO_USERS = [
+  { email: 'superadmin@flymannt.com', password: 'admin123', nama: 'Super Admin',    role: 'superuser' },
+  { email: 'rina.hr@flymannt.com',    password: 'hr123',    nama: 'Rina Kusuma',    role: 'hr' },
+  { email: 'viewer@flymannt.com',     password: 'view123',  nama: 'Hiring Manager', role: 'viewer' }
 ];
 
-function doLogin() {
-  var email = document.getElementById('login-email').value.trim().toLowerCase();
-  var pass  = document.getElementById('login-pass').value;
-  var errEl = document.getElementById('login-err');
-  errEl.style.display = 'none';
+var CANDIDATE_DATA = [
+  { nama:'Rina Kusuma',   posisi:'Staff Marketing',  tahap:'Wawancara HR',     status:'Sedang Proses', gender:'P', exp:'3 thn', company:'PT Sinar Mas', date:'2025-04-05', sla:'Terlambat',   docs:'2 file', level:'Senior Staff',  failReason:'' },
+  { nama:'Budi Santoso',  posisi:'Senior Engineer',  tahap:'Wawancara User 2', status:'Sedang Proses', gender:'L', exp:'6 thn', company:'Tokopedia',    date:'2025-04-04', sla:'Tepat Waktu', docs:'1 file', level:'Senior Staff',  failReason:'' },
+  { nama:'Dewi Rahayu',   posisi:'Finance Analyst',  tahap:'Penawaran',        status:'Sedang Proses', gender:'P', exp:'4 thn', company:'BCA',          date:'2025-04-03', sla:'Tepat Waktu', docs:'3 file', level:'Supervisor',    failReason:'' },
+  { nama:'Ahmad Fauzi',   posisi:'Staff Marketing',  tahap:'CV Screening',     status:'Gagal',         gender:'L', exp:'1 thn', company:'',             date:'2025-04-02', sla:'Tepat Waktu', docs:'1 file', level:'Junior Staff',  failReason:'Kualifikasi tidak sesuai' },
+  { nama:'Siti Nurdiana', posisi:'Ops Specialist',   tahap:'Onboarding',       status:'Diterima',      gender:'P', exp:'5 thn', company:'Unilever',     date:'2025-04-01', sla:'Tepat Waktu', docs:'4 file', level:'Senior Staff',  failReason:'' },
+  { nama:'Rizky Pratama', posisi:'Senior Engineer',  tahap:'Wawancara HR',     status:'Gagal',         gender:'L', exp:'2 thn', company:'Gojek',        date:'2025-03-28', sla:'Terlambat',   docs:'2 file', level:'Junior Staff',  failReason:'Ekspektasi gaji tidak sesuai' },
+  { nama:'Laila Sari',    posisi:'Finance Analyst',  tahap:'Wawancara User 1', status:'Sedang Proses', gender:'P', exp:'3 thn', company:'Mandiri',      date:'2025-03-25', sla:'Tepat Waktu', docs:'2 file', level:'Supervisor',    failReason:'' },
+  { nama:'Doni Wahyu',    posisi:'Staff Marketing',  tahap:'CV Screening',     status:'Sedang Proses', gender:'L', exp:'1 thn', company:'Shopee',       date:'2025-03-22', sla:'Tepat Waktu', docs:'1 file', level:'Junior Staff',  failReason:'' }
+];
 
-  if (!email || !pass) {
+var CANDIDATE_TO_DELETE = null;
+
+/* ---- AUTH ---- */
+function doLogin() {
+  var emailEl  = document.getElementById('login-email');
+  var passEl   = document.getElementById('login-pass');
+  var errEl    = document.getElementById('login-err');
+  var emailVal = emailEl ? emailEl.value.trim().toLowerCase() : '';
+  var passVal  = passEl  ? passEl.value : '';
+  errEl.style.display = 'none';
+  if (!emailVal || !passVal) {
     errEl.textContent = 'Email dan password wajib diisi.';
     errEl.style.display = 'block';
     return;
   }
-
-  // Find user (demo mode — di produksi fetch ke API_URL)
-  var user = null; for(var ui=0;ui<DEMO_USERS.length;ui++){if(DEMO_USERS[ui].email===email&&DEMO_USERS[ui].password===pass){user=DEMO_USERS[ui];break;}}
-  if (!user) {
-    errEl.textContent = 'Email atau password salah. Hubungi admin jika lupa password.';
+  var found = null;
+  for (var i = 0; i < DEMO_USERS.length; i++) {
+    if (DEMO_USERS[i].email === emailVal && DEMO_USERS[i].password === passVal) {
+      found = DEMO_USERS[i]; break;
+    }
+  }
+  if (!found) {
+    errEl.textContent = 'Email atau password salah.';
     errEl.style.display = 'block';
-    document.getElementById('login-pass').value = '';
+    if (passEl) passEl.value = '';
     return;
   }
-
-  CURRENT_USER = user;
-  sessionStorage.setItem('fn_user', JSON.stringify(user));
+  CURRENT_USER = found;
+  try { sessionStorage.setItem('fn_user', JSON.stringify(found)); } catch(e) {}
   showApp();
 }
 
 function showApp() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('main-app').style.display = 'flex';
+  var ls = document.getElementById('login-screen');
+  var ma = document.getElementById('main-app');
+  if (ls) ls.style.display = 'none';
+  if (ma) ma.style.display = 'flex';
   initApp();
+  initCandidateTable();
 }
 
 function doLogout() {
-  if (!confirm('Yakin ingin keluar?')) return;
+  openModal('modal-confirm-logout');
+}
+function doLogoutConfirmed() {
+  closeModal('modal-confirm-logout');
   CURRENT_USER = null;
-  sessionStorage.removeItem('fn_user');
-  document.getElementById('main-app').style.display = 'none';
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('login-email').value = '';
-  document.getElementById('login-pass').value = '';
-  document.getElementById('login-err').style.display = 'none';
-  // Reset to dashboard
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  document.getElementById('page-dashboard').classList.add('active');
-  document.querySelectorAll('.sb-item').forEach(function(n){ n.classList.remove('active'); });
-  document.querySelector('.sb-item').classList.add('active');
+  try { sessionStorage.removeItem('fn_user'); } catch(e) {}
+  var ma = document.getElementById('main-app');
+  var ls = document.getElementById('login-screen');
+  if (ma) ma.style.display = 'none';
+  if (ls) ls.style.display = 'flex';
+  var emailEl = document.getElementById('login-email');
+  var passEl  = document.getElementById('login-pass');
+  var errEl   = document.getElementById('login-err');
+  if (emailEl) emailEl.value = '';
+  if (passEl)  passEl.value  = '';
+  if (errEl)   errEl.style.display = 'none';
 }
 
 function initApp() {
-  document.body.className = document.body.className.replace(/role-\w+/g, '');
+  var cls = document.body.className.replace(/role-\S+/g, '');
+  document.body.className = cls;
   document.body.classList.add('role-' + CURRENT_USER.role);
-  // Update sidebar user info
-  var initials = CURRENT_USER.nama.split(' ').map(function(w){return w[0];}).join('').substr(0,2).toUpperCase();
-  document.getElementById('sb-av').textContent   = initials;
-  document.getElementById('sb-uname').textContent = CURRENT_USER.nama;
-  document.getElementById('sb-urole').textContent =
-    CURRENT_USER.role === 'superuser' ? 'Super User / Admin' :
-    CURRENT_USER.role === 'hr'        ? 'HR Recruiter' : 'Pemantau';
-  // Apply role-based visibility
-  document.querySelectorAll('.superuser-only').forEach(function(el) {
-    el.style.display = CURRENT_USER.role === 'superuser' ? 'flex' : 'none';
-  });
+  var ini = CURRENT_USER.nama.split(' ').map(function(w){ return w[0]; }).join('').substr(0,2).toUpperCase();
+  var av    = document.getElementById('sb-av');
+  var uname = document.getElementById('sb-uname');
+  var urole = document.getElementById('sb-urole');
+  if (av)    av.textContent    = ini;
+  if (uname) uname.textContent = CURRENT_USER.nama;
+  if (urole) urole.textContent = CURRENT_USER.role === 'superuser' ? 'Super User / Admin' : CURRENT_USER.role === 'hr' ? 'HR Recruiter' : 'Pemantau';
+  var suEls = document.querySelectorAll('.superuser-only');
+  for (var i = 0; i < suEls.length; i++) {
+    suEls[i].style.display = CURRENT_USER.role === 'superuser' ? 'flex' : 'none';
+  }
+  initCandidateTable();
 }
 
-// ── NAV ──
-function navTo(id, el) {
-  // Guard superuser-only pages
-  if ((id === 'config' || id === 'access') && CURRENT_USER.role !== 'superuser') {
+/* ---- NAVIGATION ---- */
+function navTo(pageId, el) {
+  if ((pageId === 'config' || pageId === 'access') && CURRENT_USER && CURRENT_USER.role !== 'superuser') {
     alert('Halaman ini hanya dapat diakses oleh Super User.');
     return;
   }
-  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  document.querySelectorAll('.sb-item').forEach(function(n){ n.classList.remove('active'); });
-  document.getElementById('page-' + id).classList.add('active');
-  if (el) el.classList.add('active');
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  var navItems = document.querySelectorAll('.sb-item');
+  for (var j = 0; j < navItems.length; j++) {
+    navItems[j].classList.remove('active');
+    if (el && navItems[j] === el) navItems[j].classList.add('active');
+  }
+  var pg = document.getElementById('page-' + pageId);
+  if (pg) pg.classList.add('active');
   var titles = { dashboard:'Dasbor', candidates:'Daftar Kandidat', positions:'Posisi', config:'Konfigurasi', access:'Akses Pengguna', detail:'Detail Kandidat' };
-  document.getElementById('topbar-title').textContent = titles[id] || id;
-  document.getElementById('topbar-sub').textContent = '';
+  var ttl = document.getElementById('topbar-title');
+  var sub = document.getElementById('topbar-sub');
+  if (ttl) ttl.textContent = titles[pageId] || pageId;
+  if (sub) sub.textContent = '';
 }
 
-// ── DETAIL ──
 function openDetail(nm, pos, src, exp, comp, gen, lvl) {
-  var ini = nm.split(' ').map(function(w){return w[0];}).join('').substr(0, 2).toUpperCase();
-  document.getElementById('det-av').textContent = ini;
-  document.getElementById('det-name').textContent = nm;
-  document.getElementById('det-pos').textContent = pos + ' \u2022 Sumber: ' + src;
-  document.getElementById('dc-e').textContent = exp;
-  document.getElementById('dc-c').textContent = comp;
-  document.getElementById('dc-g').textContent = gen;
-  document.getElementById('dc-l').textContent = lvl || '—';
-  navTo('detail', null);
-  document.getElementById('topbar-title').textContent = 'Detail Kandidat';
-  document.getElementById('topbar-sub').textContent = '\u203a ' + nm;
+  var ini = nm.split(' ').map(function(w){ return w[0]; }).join('').substr(0,2).toUpperCase();
+  var av   = document.getElementById('det-av');
+  var nm_  = document.getElementById('det-name');
+  var ps   = document.getElementById('det-pos');
+  var dcg  = document.getElementById('dc-g');
+  var dce  = document.getElementById('dc-e');
+  var dcc  = document.getElementById('dc-c');
+  var dcl  = document.getElementById('dc-l');
+  if (av)  av.textContent  = ini;
+  if (nm_) nm_.textContent = nm;
+  if (ps)  ps.textContent  = pos + ' \u2022 Sumber: ' + src;
+  if (dcg) dcg.textContent = gen;
+  if (dce) dce.textContent = exp;
+  if (dcc) dcc.textContent = comp;
+  if (dcl) dcl.textContent = lvl || '\u2014';
+  var ttl = document.getElementById('topbar-title');
+  var sub = document.getElementById('topbar-sub');
+  if (ttl) ttl.textContent = 'Detail Kandidat';
+  if (sub) sub.textContent = '\u203a ' + nm;
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  var pg = document.getElementById('page-detail');
+  if (pg) pg.classList.add('active');
 }
 
-// ── MODAL ──
-function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-document.querySelectorAll('.modal-overlay').forEach(function(m) {
-  m.addEventListener('click', function(e) { if (e.target === this) this.classList.add('hidden'); });
+/* ---- MODAL ---- */
+function openModal(id)  { var el = document.getElementById(id); if (el) el.classList.remove('hidden'); }
+function closeModal(id) { var el = document.getElementById(id); if (el) el.classList.add('hidden'); }
+
+window.addEventListener('click', function(e) {
+  var overlays = document.querySelectorAll('.modal-overlay');
+  for (var i = 0; i < overlays.length; i++) {
+    if (e.target === overlays[i]) overlays[i].classList.add('hidden');
+  }
 });
 
-// ── FAIL REASON TOGGLE ──
+/* ---- FORM HELPERS ---- */
 function toggleFailReason(id, val) {
-  document.getElementById(id).classList.toggle('hidden', val !== 'failed');
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('hidden', val !== 'failed');
 }
 
-// ── FORMAT CURRENCY ──
 function fmtRp(inp) {
   var v = inp.value.replace(/\D/g, '');
   inp.value = v ? parseInt(v, 10).toLocaleString('id-ID') : '';
 }
 
-// ── MOCK UPLOAD ──
 function mockUpload(targetId, fname, fsize) {
   var wrap = document.getElementById(targetId);
+  if (!wrap) return;
   var d = document.createElement('div');
   d.className = 'upload-file';
-  d.innerHTML = '<svg width="11" height="11" viewBox="0 0 14 14" fill="currentColor" style="flex-shrink:0;color:var(--ft)"><path d="M2 2h7l3 3v7a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/></svg><span class="uf-name">' + fname + '</span><span class="uf-size">' + fsize + '</span><span class="uf-del" onclick="this.parentNode.remove()">×</span>';
+  d.innerHTML = '<span class="uf-name">' + fname + '</span><span class="uf-size">' + fsize + '</span><span class="uf-del" onclick="this.parentNode.remove()">\u00d7</span>';
   wrap.appendChild(d);
 }
 
-// ── CONFIG ADD ──
+/* ---- CONFIG ---- */
 function showCfgAdd(id) {
-  document.getElementById(id).classList.remove('hidden');
-  document.getElementById(id).querySelector('input').focus();
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('hidden');
+  var inp = el.querySelector('input');
+  if (inp) inp.focus();
 }
+
 function addCfgItem(listId, inputId, addRowId) {
-  var val = document.getElementById(inputId).value.trim();
-  if (!val) return;
+  var inp  = document.getElementById(inputId);
   var list = document.getElementById(listId);
+  var row  = document.getElementById(addRowId);
+  if (!inp || !list) return;
+  var val = inp.value.trim();
+  if (!val) return;
   var d = document.createElement('div');
   d.className = 'cfg-item';
   d.innerHTML = '<div class="cfg-item-name">' + val + '<div class="cfg-item-meta">Aktif</div></div><button class="btn btn-danger btn-xs" onclick="this.closest(\'.cfg-item\').remove()">Hapus</button>';
   list.appendChild(d);
-  document.getElementById(inputId).value = '';
-  document.getElementById(addRowId).classList.add('hidden');
+  inp.value = '';
+  if (row) row.classList.add('hidden');
 }
 
-// ── SAVE POSITION ──
+/* ---- POSITIONS ---- */
 function savePosition() {
-  var title = document.getElementById('pm-title').value.trim();
-  var dept = document.getElementById('pm-dept').value.trim();
-  var hc = document.getElementById('pm-hc').value || '1';
-  var type = document.getElementById('pm-type').value;
-  var prio = document.getElementById('pm-prio').value;
-  if (!title || !dept || !type || !prio) { alert('Mohon lengkapi semua field wajib.'); return; }
-  var prioColor = prio === 'Mendesak' ? '#A32D2D' : '#854F0B';
+  var titleEl = document.getElementById('pm-title');
+  var deptEl  = document.getElementById('pm-dept');
+  var hcEl    = document.getElementById('pm-hc');
+  var typeEl  = document.getElementById('pm-type');
+  var prioEl  = document.getElementById('pm-prio');
+  var titleV  = titleEl ? titleEl.value.trim() : '';
+  var deptV   = deptEl  ? deptEl.value.trim()  : '';
+  var hcV     = hcEl    ? hcEl.value || '1'    : '1';
+  var typeV   = typeEl  ? typeEl.value          : '';
+  var prioV   = prioEl  ? prioEl.value          : '';
+  if (!titleV || !deptV || !typeV || !prioV) { alert('Mohon lengkapi semua field wajib.'); return; }
+  var prioColor = prioV === 'Mendesak' ? '#A32D2D' : '#854F0B';
   var grid = document.getElementById('pos-grid');
-  var pc = document.createElement('div');
-  pc.className = 'pos-card';
-  pc.innerHTML = '<div style="display:flex;align-items:center;gap:5px;margin-bottom:2px"><span class="pos-dot" style="background:var(--ft)"></span><div class="pos-title">' + title + '</div></div>'
-    + '<div class="pos-meta">' + dept + ' \u2022 ' + hc + ' lowongan \u2022 ' + type + ' \u2022 <span style="color:' + prioColor + ';font-weight:600">' + prio + '</span></div>'
-    + '<div class="pos-stats"><div><div class="ps-val">0</div><div class="ps-lbl">Kandidat</div></div><div><div class="ps-val">0</div><div class="ps-lbl">Aktif</div></div><div><div class="ps-val">0</div><div class="ps-lbl">Diterima</div></div></div>';
-  grid.appendChild(pc);
-  // also add to config pos list
-  var cfgListEl = document.getElementById('cfg-pos-list');
-  var ci = document.createElement('div');
-  ci.className = 'cfg-item';
-  ci.innerHTML = '<div class="cfg-item-name">' + title + '<div class="cfg-item-meta">' + dept + ' \u2022 Terbuka</div></div><button class="btn btn-danger btn-xs" onclick="this.closest(\'.cfg-item\').remove()">Hapus</button>';
-  cfgList.appendChild(ci);
-  closeModal('modal-add-position');
-  ['pm-title','pm-dept','pm-type','pm-prio','pm-date'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('pm-hc').value = '1';
-  // Hide empty state & update counts
   var emptyEl = document.getElementById('pos-empty');
   if (emptyEl) emptyEl.style.display = 'none';
-  var summary = document.getElementById('pos-summary');
-  var activeCards = document.querySelectorAll('#pos-grid .pos-active').length;
-  var closedCards = document.querySelectorAll('#pos-grid .pos-closed').length;
-  if (summary) summary.textContent = activeCards + ' posisi aktif • ' + closedCards + ' posisi ditutup';
-  // Sync to config list
-  var cfgList = document.getElementById('cfg-pos-list');
+  if (grid) {
+    var pc = document.createElement('div');
+    pc.className = 'pos-card pos-active';
+    pc.setAttribute('data-posisi', titleV);
+    pc.style.borderLeft = '3px solid var(--ft)';
+    pc.onclick = function() { goToCandidatesByPos(titleV); };
+    pc.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><div style="display:flex;align-items:center;gap:6px"><span class="pos-dot" style="background:var(--ft)"></span><div class="pos-title">' + titleV + '</div></div><span class="badge b-ontrack" style="font-size:9px">Aktif</span></div>'
+      + '<div class="pos-meta">' + deptV + ' \u2022 ' + hcV + ' lowongan \u2022 ' + typeV + ' \u2022 <span style="color:' + prioColor + ';font-weight:600">' + prioV + '</span></div>'
+      + '<div class="pos-stats"><div><div class="ps-val">0</div><div class="ps-lbl">Kandidat</div></div><div><div class="ps-val">0</div><div class="ps-lbl">Aktif</div></div><div><div class="ps-val">0</div><div class="ps-lbl">Diterima</div></div></div>'
+      + '<div style="margin-top:8px;font-size:10px;color:var(--ft);font-weight:500">Lihat semua kandidat \u2192</div>';
+    grid.appendChild(pc);
+  }
+  updatePosSummary();
+  var cfgList  = document.getElementById('cfg-pos-list');
   var cfgEmpty = document.getElementById('cfg-pos-empty');
   if (cfgEmpty) cfgEmpty.style.display = 'none';
   if (cfgList) {
-    var ci3 = document.createElement('div');
-    ci3.className = 'cfg-item';
-    ci3.innerHTML = '<div class="cfg-item-name">' + title + '<div class="cfg-item-meta">' + dept + ' • Terbuka</div></div>'
-      + '<button class="btn btn-danger btn-xs" onclick="this.closest(\'.cfg-item\').remove()">Hapus</button>';
-    cfgList.appendChild(ci3);
+    var ci = document.createElement('div');
+    ci.className = 'cfg-item';
+    ci.innerHTML = '<div class="cfg-item-name">' + titleV + '<div class="cfg-item-meta">' + deptV + ' \u2022 Terbuka</div></div><button class="btn btn-danger btn-xs" onclick="this.closest(\'.cfg-item\').remove()">Hapus</button>';
+    cfgList.appendChild(ci);
   }
-}
-
-// ── FILTER KANDIDAT ──
-const CANDIDATE_DATA = [
-  { nama:'Rina Kusuma',   posisi:'Staff Marketing',  tahap:'Wawancara HR',       status:'Sedang Proses', gender:'P', exp:'3 thn', company:'PT Sinar Mas',  date:'2025-04-05', sla:'Terlambat',   docs:'2 file', level:'Senior Staff' },
-  { nama:'Budi Santoso',  posisi:'Senior Engineer',  tahap:'Wawancara User 2',   status:'Sedang Proses', gender:'L', exp:'6 thn', company:'Tokopedia',     date:'2025-04-04', sla:'Tepat Waktu', docs:'1 file', level:'Senior Staff' },
-  { nama:'Dewi Rahayu',   posisi:'Finance Analyst',  tahap:'Penawaran',          status:'Sedang Proses', gender:'P', exp:'4 thn', company:'BCA',           date:'2025-04-03', sla:'Tepat Waktu', docs:'3 file', level:'Supervisor' },
-  { nama:'Ahmad Fauzi',   posisi:'Staff Marketing',  tahap:'CV Screening',       status:'Gagal',         gender:'L', exp:'1 thn', company:'—',             date:'2025-04-02', sla:'Tepat Waktu', docs:'1 file', level:'Junior Staff' },
-  { nama:'Siti Nurdiana', posisi:'Ops Specialist',   tahap:'Onboarding',         status:'Diterima',      gender:'P', exp:'5 thn', company:'Unilever',      date:'2025-04-01', sla:'Tepat Waktu', docs:'4 file', level:'Senior Staff' },
-  { nama:'Rizky Pratama', posisi:'Senior Engineer',  tahap:'Wawancara HR',       status:'Gagal',         gender:'L', exp:'2 thn', company:'Gojek',         date:'2025-03-28', sla:'Terlambat',   docs:'2 file', level:'Junior Staff' },
-  { nama:'Laila Sari',    posisi:'Finance Analyst',  tahap:'Wawancara User 1',   status:'Sedang Proses', gender:'P', exp:'3 thn', company:'Mandiri',       date:'2025-03-25', sla:'Tepat Waktu', docs:'2 file', level:'Supervisor' },
-  { nama:'Doni Wahyu',    posisi:'Staff Marketing',  tahap:'CV Screening',       status:'Sedang Proses', gender:'L', exp:'1 thn', company:'Shopee',        date:'2025-03-22', sla:'Tepat Waktu', docs:'1 file', level:'Junior Staff' },
-];
-
-function slaColor(s){ return s==='Terlambat'?'b-late':s==='Tepat Waktu'?'b-ontrack':'b-gray'; }
-function statusColor(s){ return s==='Sedang Proses'?'b-progress':s==='Gagal'?'b-failed':s==='Diterima'?'b-hired':'b-success'; }
-
-function fmtDate(d) {
-  var p = d.split('-'); 
-  var mo = ['','Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
-  return p[2]+' '+mo[parseInt(p[1])]+' '+p[0];
-}
-function mkRow(c) {
-  var genderStr = c.gender === 'P' ? 'Perempuan' : 'Laki-laki';
-  var docBadge = (c.docs.includes('4')||c.docs.includes('3')) ? 'b-success' : 'b-gray';
-  var tr = document.createElement('tr');
-  tr.className = 'tbl-row';
-  tr.onclick = function(){ openDetail(c.nama,c.posisi,'—',c.exp,c.company,genderStr,c.level); };
-  tr.innerHTML = '<td><div class="td-name">'+c.nama+'</div><div class="td-sub">'+c.gender+' &bull; '+c.exp+' &bull; '+c.company+'</div></td>'
-    +'<td>'+c.posisi+'</td>'
-    +'<td>'+c.tahap+'</td>'
-    +'<td><span class="badge '+statusColor(c.status)+'">'+c.status+'</span></td>'
-    +'<td><span class="badge '+slaColor(c.sla)+'">'+c.sla+'</span></td>'
-    +'<td><span class="badge '+docBadge+'">'+c.docs+'</span></td>'
-    +'<td style="font-size:10px;color:var(--tx3)">'+fmtDate(c.date)+'</td>'
-    +'<td><button class="btn btn-xs">Detail</button></td>';
-  tr.querySelector('.btn-xs').onclick = function(e){ 
-    e.stopPropagation(); 
-    openDetail(c.nama,c.posisi,'—',c.exp,c.company,genderStr,c.level); 
-  };
-  return tr;
-}
-function renderCandidateTable(data) {
-  var tbody = document.getElementById('cand-tbody');
-  tbody.innerHTML = '';
-  if (!data.length) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--tx3);font-size:12px">Tidak ada kandidat yang sesuai filter</td></tr>';
-    document.getElementById('f-count').textContent = '0 kandidat';
-    return;
+  closeModal('modal-add-position');
+  var ids = ['pm-title','pm-dept','pm-type','pm-prio','pm-date'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el) el.value = '';
   }
-  document.getElementById('f-count').textContent = data.length + ' kandidat';
-  data.forEach(function(c){ tbody.appendChild(mkRow(c)); });
+  if (hcEl) hcEl.value = '1';
 }
 
-function resetFilter() {
-  var srchEl = document.getElementById('f-search');
-  var posEl = document.getElementById('f-posisi');
-  var tahapEl = document.getElementById('f-tahap');
-  var statEl = document.getElementById('f-status');
-  var dateFromEl = document.getElementById('f-date-from');
-  var dateToEl = document.getElementById('f-date-to');
-  if (srchEl) srchEl.value = '';
-  if (posEl) posEl.value = '';
-  if (tahapEl) tahapEl.value = '';
-  if (statEl) statEl.value = '';
-  if (dateFromEl) dateFromEl.value = '';
-  if (dateToEl) dateToEl.value = '';
+function updatePosSummary() {
+  var grid = document.getElementById('pos-grid');
+  if (!grid) return;
+  var activeCards = grid.querySelectorAll('.pos-active').length;
+  var closedCards = grid.querySelectorAll('.pos-closed').length;
+  var summary = document.getElementById('pos-summary');
+  if (summary) summary.textContent = activeCards + ' posisi aktif \u2022 ' + closedCards + ' posisi ditutup';
+  var emptyEl = document.getElementById('pos-empty');
+  if (emptyEl) emptyEl.style.display = (activeCards + closedCards === 0) ? 'block' : 'none';
+}
+
+function goToCandidates() {
+  navTo('candidates', null);
   renderCandidateTable(CANDIDATE_DATA);
 }
-
-function filterCandidates() {
-  var q     = (document.getElementById('f-search').value||'').toLowerCase();
-  var pos   = document.getElementById('f-posisi').value;
-  var tahap = document.getElementById('f-tahap').value;
-  var stat  = document.getElementById('f-status').value;
-  var dateFrom = document.getElementById('f-date-dateFrom').value;
-  var dateTo = document.getElementById('f-date-dateTo').value;
-
-  var filtered = CANDIDATE_DATA.filter(function(c) {
-    if (q && !c.nama.toLowerCase().includes(q) && !c.posisi.toLowerCase().includes(q) && !c.company.toLowerCase().includes(q)) return false;
-    if (pos   && c.posisi !== pos)   return false;
-    if (tahap && c.tahap  !== tahap) return false;
-    if (stat  && c.status !== stat)  return false;
-    if (dateFrom  && c.date < dateFrom)      return false;
-    if (dateTo    && c.date > dateTo)        return false;
-    return true;
-  });
-  renderCandidateTable(filtered);
-}
-
-// ── POSISI → KANDIDAT REDIRECT ──
 function goToCandidatesByPos(posisi) {
   navTo('candidates', document.querySelector('.sb-item:nth-child(5)'));
   setTimeout(function() {
     var sel = document.getElementById('f-posisi');
-    if (sel) {
-      sel.value = posisi;
-      filterCandidates();
-    }
+    if (sel) { sel.value = posisi; filterCandidates(); }
   }, 50);
 }
 
-// ── HAPUS KANDIDAT ──
-var CANDIDATE_TO_DELETE = null;
-function confirmDelete() {
-  var candName = document.getElementById('det-name').textContent;
-  CANDIDATE_TO_DELETE = candName;
-  // Show confirm dialog
-  var overlay = document.getElementById('modal-confirm-delete');
-  document.getElementById('del-cand-name').textContent = candName;
-  overlay.classList.remove('hidden');
-}
-function doDeleteCandidate() {
-  var deleteName = CANDIDATE_TO_DELETE;
-  // Remove from the data array
-  var idx2 = -1;
-  for (var di = 0; di < CANDIDATE_DATA.length; di++) {
-    if (CANDIDATE_DATA[di].nama === deleteName) { idx2 = di; break; }
-  }
-  if (idx2 > -1) CANDIDATE_DATA.splice(idx2, 1);
-  closeModal('modal-confirm-delete');
-  CANDIDATE_TO_DELETE = null;
-  // Go back to candidates list and refresh
-  navTo('candidates', document.querySelector('.sb-item:nth-child(5)'));
-  renderCandidateTable(CANDIDATE_DATA);
-  // Show brief toast
-  showToast(deleteName + ' berhasil dihapus');
+/* ---- CANDIDATES TABLE ---- */
+function slaColor(s)    { return s === 'Terlambat' ? 'b-late' : s === 'Tepat Waktu' ? 'b-ontrack' : 'b-gray'; }
+function statusColor(s) { return s === 'Sedang Proses' ? 'b-progress' : s === 'Gagal' ? 'b-failed' : s === 'Diterima' ? 'b-hired' : 'b-success'; }
+
+function fmtDate(d) {
+  var p  = d.split('-');
+  var mo = ['','Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
+  return p[2] + ' ' + mo[parseInt(p[1], 10)] + ' ' + p[0];
 }
 
-// ── TOAST NOTIFICATION ──
+function mkRow(c) {
+  var genderStr = c.gender === 'P' ? 'Perempuan' : 'Laki-laki';
+  var docBadge  = (c.docs.indexOf('4') !== -1 || c.docs.indexOf('3') !== -1) ? 'b-success' : 'b-gray';
+  var tr        = document.createElement('tr');
+  tr.className  = 'tbl-row';
+  var cCopy     = c;
+  tr.onclick    = function() { openDetail(cCopy.nama, cCopy.posisi, '\u2014', cCopy.exp, cCopy.company, genderStr, cCopy.level); };
+  tr.innerHTML  = '<td><div class="td-name">' + c.nama + '</div><div class="td-sub">' + c.gender + ' &bull; ' + c.exp + ' &bull; ' + (c.company || '\u2014') + '</div></td>'
+    + '<td>' + c.posisi + '</td>'
+    + '<td>' + c.tahap + '</td>'
+    + '<td><span class="badge ' + statusColor(c.status) + '">' + c.status + '</span></td>'
+    + '<td><span class="badge ' + slaColor(c.sla) + '">' + c.sla + '</span></td>'
+    + '<td><span class="badge ' + docBadge + '">' + c.docs + '</span></td>'
+    + '<td style="font-size:10px;color:var(--tx3)">' + fmtDate(c.date) + '</td>'
+    + '<td><button class="btn btn-xs">Detail</button></td>';
+  var detBtn = tr.querySelector('.btn-xs');
+  if (detBtn) {
+    detBtn.onclick = function(e) {
+      e.stopPropagation();
+      openDetail(cCopy.nama, cCopy.posisi, '\u2014', cCopy.exp, cCopy.company, genderStr, cCopy.level);
+    };
+  }
+  return tr;
+}
+
+function renderCandidateTable(data) {
+  var tbody = document.getElementById('cand-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  var countEl = document.getElementById('f-count');
+  if (!data || data.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:var(--tx3);font-size:12px">Tidak ada kandidat yang sesuai filter</td></tr>';
+    if (countEl) countEl.textContent = '0 kandidat';
+    return;
+  }
+  if (countEl) countEl.textContent = data.length + ' kandidat';
+  for (var i = 0; i < data.length; i++) tbody.appendChild(mkRow(data[i]));
+}
+
+function filterCandidates() {
+  var searchEl  = document.getElementById('f-search');
+  var posisiEl  = document.getElementById('f-posisi');
+  var tahapEl   = document.getElementById('f-tahap');
+  var statusEl  = document.getElementById('f-status');
+  var dateFromEl= document.getElementById('f-date-from');
+  var dateToEl  = document.getElementById('f-date-to');
+  var qVal      = searchEl  ? searchEl.value.toLowerCase()  : '';
+  var posVal    = posisiEl  ? posisiEl.value                 : '';
+  var tahapVal  = tahapEl   ? tahapEl.value                  : '';
+  var statVal   = statusEl  ? statusEl.value                 : '';
+  var dateStart = dateFromEl? dateFromEl.value               : '';
+  var dateEnd   = dateToEl  ? dateToEl.value                 : '';
+  var filtered  = [];
+  for (var i = 0; i < CANDIDATE_DATA.length; i++) {
+    var c = CANDIDATE_DATA[i];
+    if (qVal && c.nama.toLowerCase().indexOf(qVal) === -1 && c.posisi.toLowerCase().indexOf(qVal) === -1 && (c.company||'').toLowerCase().indexOf(qVal) === -1) continue;
+    if (posVal    && c.posisi  !== posVal)    continue;
+    if (tahapVal  && c.tahap   !== tahapVal)  continue;
+    if (statVal   && c.status  !== statVal)   continue;
+    if (dateStart && c.date    <  dateStart)  continue;
+    if (dateEnd   && c.date    >  dateEnd)    continue;
+    filtered.push(c);
+  }
+  renderCandidateTable(filtered);
+}
+
+function resetFilter() {
+  var ids = ['f-search','f-posisi','f-tahap','f-status','f-date-from','f-date-to'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el) el.value = '';
+  }
+  renderCandidateTable(CANDIDATE_DATA);
+}
+
+/* ---- DELETE CANDIDATE ---- */
+function confirmDelete() {
+  var nmEl = document.getElementById('det-name');
+  if (!nmEl) return;
+  CANDIDATE_TO_DELETE = nmEl.textContent;
+  var lbl = document.getElementById('del-cand-name');
+  if (lbl) lbl.textContent = CANDIDATE_TO_DELETE;
+  openModal('modal-confirm-delete');
+}
+
+function doDeleteCandidate() {
+  var idx = -1;
+  for (var i = 0; i < CANDIDATE_DATA.length; i++) {
+    if (CANDIDATE_DATA[i].nama === CANDIDATE_TO_DELETE) { idx = i; break; }
+  }
+  if (idx > -1) CANDIDATE_DATA.splice(idx, 1);
+  closeModal('modal-confirm-delete');
+  var badge = document.getElementById('sb-cand-count');
+  if (badge) badge.textContent = CANDIDATE_DATA.length;
+  navTo('candidates', document.querySelector('.sb-item:nth-child(5)'));
+  renderCandidateTable(CANDIDATE_DATA);
+  refreshDashboard();
+  showToast(CANDIDATE_TO_DELETE + ' berhasil dihapus');
+  CANDIDATE_TO_DELETE = null;
+}
+
+/* ---- ADD CANDIDATE ---- */
+function saveNewCandidate() {
+  var namaEl   = document.querySelector('#modal-add-candidate input[type="text"]');
+  var genderEl = document.querySelector('#modal-add-candidate select');
+  var allSels  = document.querySelectorAll('#modal-add-candidate select');
+  var posisiEl = allSels[1];
+  var sumberEl = allSels[2];
+  var expEl    = document.querySelector('#modal-add-candidate input[type="number"]');
+  var companyInputs = document.querySelectorAll('#modal-add-candidate input[type="text"]');
+  var compEl   = companyInputs[1];
+  var levelEl  = allSels[3];
+  var namaV    = namaEl   ? namaEl.value.trim()   : '';
+  var posisiV  = posisiEl ? posisiEl.value         : '';
+  var sumberV  = sumberEl ? sumberEl.value         : '';
+  var levelV   = levelEl  ? levelEl.value          : '';
+  if (!namaV)   { alert('Nama lengkap wajib diisi');      return; }
+  if (!posisiV) { alert('Posisi wajib dipilih');          return; }
+  if (!sumberV) { alert('Sumber kandidat wajib dipilih'); return; }
+  if (!levelV)  { alert('Level jabatan wajib dipilih');   return; }
+  var newCand = {
+    nama:       namaV,
+    posisi:     posisiV,
+    sumber:     sumberV,
+    gender:     genderEl && genderEl.value === 'Perempuan' ? 'P' : 'L',
+    exp:        (expEl && expEl.value ? expEl.value : '0') + ' thn',
+    company:    compEl && compEl.value ? compEl.value : '',
+    tahap:      'CV Screening',
+    status:     'Sedang Proses',
+    sla:        'Tepat Waktu',
+    date:       new Date().toISOString().split('T')[0],
+    docs:       '0 file',
+    level:      levelV,
+    failReason: ''
+  };
+  CANDIDATE_DATA.unshift(newCand);
+  closeModal('modal-add-candidate');
+  var badge = document.getElementById('sb-cand-count');
+  if (badge) badge.textContent = CANDIDATE_DATA.length;
+  navTo('candidates', document.querySelector('.sb-item:nth-child(5)'));
+  renderCandidateTable(CANDIDATE_DATA);
+  refreshDashboard();
+  showToast(namaV + ' berhasil ditambahkan ke pipeline');
+}
+
+/* ---- TOAST ---- */
 function showToast(msg) {
-  var t = document.getElementById('toast');
+  var t = document.getElementById('fn-toast');
   if (!t) {
     t = document.createElement('div');
-    t.id = 'toast';
-    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1C2B2A;color:#fff;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:500;z-index:9998;transition:opacity 0.3s;font-family:DM Sans,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.2)';
+    t.id = 'fn-toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1C2B2A;color:#fff;padding:10px 20px;border-radius:8px;font-size:12px;font-weight:500;z-index:9999;opacity:0;transition:opacity 0.3s;font-family:DM Sans,sans-serif;pointer-events:none';
     document.body.appendChild(t);
   }
   t.textContent = msg;
   t.style.opacity = '1';
-  clearTimeout(t._timer);
-  t._timer = setTimeout(function() { t.style.opacity = '0'; }, 2500);
+  clearTimeout(t._t);
+  t._t = setTimeout(function() { t.style.opacity = '0'; }, 2500);
 }
 
-// ── DASHBOARD PERIOD FILTER ──
+/* ---- DASHBOARD PERIOD FILTER ---- */
 function setDashPeriod(period, btn) {
-  ['df-7','df-30','df-month','df-all'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    el.style.background = '';
-    el.style.color = '';
-    el.style.borderColor = '';
-  });
-  if (btn) {
-    btn.style.background = 'var(--ft)';
-    btn.style.color = '#fff';
-    btn.style.borderColor = 'var(--ft)';
+  var btnIds = ['df-7','df-30','df-month','df-all'];
+  for (var i = 0; i < btnIds.length; i++) {
+    var b = document.getElementById(btnIds[i]);
+    if (b) { b.style.background = ''; b.style.color = ''; b.style.borderColor = ''; }
   }
-  var today = new Date();
-  var fmt = function(d) { return d.toISOString().split('T')[0]; };
+  if (btn) { btn.style.background = 'var(--ft)'; btn.style.color = '#fff'; btn.style.borderColor = 'var(--ft)'; }
+  var today    = new Date();
+  var todayStr = today.toISOString().split('T')[0];
   var dateStart = '';
-  var dateEnd = fmt(today);
-  var label = '';
+  var label     = '';
   if (period === '7d') {
-    var d7 = new Date(today); d7.setDate(d7.getDate()-7);
-    dateStart = fmt(d7); label = '7 hari terakhir';
+    var d7 = new Date(today); d7.setDate(d7.getDate() - 7);
+    dateStart = d7.toISOString().split('T')[0]; label = '7 hari terakhir';
   } else if (period === '30d') {
-    var d30 = new Date(today); d30.setDate(d30.getDate()-30);
-    dateStart = fmt(d30); label = '30 hari terakhir';
+    var d30 = new Date(today); d30.setDate(d30.getDate() - 30);
+    dateStart = d30.toISOString().split('T')[0]; label = '30 hari terakhir';
   } else if (period === 'month') {
-    dateStart = fmt(new Date(today.getFullYear(), today.getMonth(), 1));
-    label = 'Bulan ini';
+    var dm = new Date(today.getFullYear(), today.getMonth(), 1);
+    dateStart = dm.toISOString().split('T')[0]; label = 'Bulan ini';
   } else if (period === 'all') {
     dateStart = '2020-01-01'; label = 'Semua waktu';
   } else {
-    dateStart = document.getElementById('df-from').value;
-    dateEnd = document.getElementById('df-to').value;
-    label = dateStart + ' s/d ' + dateEnd;
-    ['df-7','df-30','df-month','df-all'].forEach(function(id) {
-      var el2 = document.getElementById(id);
-      if (el2) { el2.style.background=''; el2.style.color=''; el2.style.borderColor=''; }
-    });
+    var dfEl = document.getElementById('df-from');
+    var dtEl = document.getElementById('df-to');
+    dateStart = dfEl ? dfEl.value : '';
+    todayStr  = dtEl ? dtEl.value : todayStr;
+    label     = dateStart + ' s/d ' + todayStr;
+    for (var j = 0; j < btnIds.length; j++) {
+      var b2 = document.getElementById(btnIds[j]);
+      if (b2) { b2.style.background = ''; b2.style.color = ''; b2.style.borderColor = ''; }
+    }
   }
   if (period !== 'custom') {
     var fiEl = document.getElementById('df-from');
     var tiEl = document.getElementById('df-to');
     if (fiEl) fiEl.value = dateStart;
-    if (tiEl) tiEl.value = dateEnd;
+    if (tiEl) tiEl.value = todayStr;
   }
   var lbl = document.getElementById('df-label');
   if (lbl) lbl.textContent = label;
   showToast('Dashboard difilter: ' + label);
 }
 
-// ── INIT CANDIDATE TABLE ──
+/* ---- DASHBOARD REFRESH ---- */
+function refreshDashboard() {
+  var data   = CANDIDATE_DATA;
+  var total  = data.length;
+  var active = 0; var hired = 0; var ontime = 0;
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].status === 'Sedang Proses') active++;
+    if (data[i].status === 'Diterima')      hired++;
+    if (data[i].sla    === 'Tepat Waktu')   ontime++;
+  }
+  var sla = total > 0 ? Math.round((ontime / total) * 100) : 0;
+  var kpiTotal  = document.getElementById('kpi-total');
+  var kpiAct    = document.getElementById('kpi-active');
+  var kpiSla    = document.getElementById('kpi-sla');
+  var kpiTth    = document.getElementById('kpi-tth');
+  var sub1      = document.getElementById('kpi-total-sub');
+  var sub2      = document.getElementById('kpi-sla-sub');
+  if (kpiTotal) kpiTotal.textContent = total || '\u2014';
+  if (kpiAct)   kpiAct.textContent   = active || '\u2014';
+  if (kpiSla)   kpiSla.textContent   = total > 0 ? sla + '%' : '\u2014';
+  if (kpiTth)   kpiTth.innerHTML     = '24 <span style="font-size:14px;font-weight:400">hr</span>';
+  if (sub1 && total > 0) { sub1.textContent = active + ' aktif, ' + hired + ' diterima'; sub1.className = 'kpi-sub up'; }
+  if (sub2 && total > 0) { sub2.textContent = ontime + ' dari ' + total + ' tepat waktu'; sub2.className = sla >= 75 ? 'kpi-sub up' : 'kpi-sub dn'; }
+  if (total === 0) return;
+  var stages = ['CV Screening','Wawancara HR','Wawancara User 1','Wawancara User 2','Penawaran','Onboarding'];
+  var colors  = ['#185FA5','#2870B5','var(--ft)','#1A6E5E','#854F0B','#3B6D11'];
+  var funnelBody = document.getElementById('funnel-body');
+  var funnelHint = document.getElementById('funnel-hint');
+  if (funnelHint) funnelHint.textContent = total + ' total kandidat';
+  if (funnelBody) {
+    var fhtml = '';
+    for (var si = 0; si < stages.length; si++) {
+      var cnt = 0;
+      for (var ci = 0; ci < data.length; ci++) {
+        if (stages.indexOf(data[ci].tahap) >= si) cnt++;
+      }
+      var pct = total > 0 ? Math.round((cnt / total) * 100) : 0;
+      fhtml += '<div class="funnel-row"><div class="fl-label">' + stages[si] + '</div><div class="fl-track"><div class="fl-fill" style="width:' + pct + '%;background:' + colors[si] + '"><span class="fl-n">' + cnt + '</span></div></div><div class="fl-pct">' + pct + '%</div></div>';
+    }
+    funnelBody.innerHTML = fhtml;
+  }
+  var reasons = {};
+  for (var ri = 0; ri < data.length; ri++) {
+    if (data[ri].status === 'Gagal' && data[ri].failReason) {
+      reasons[data[ri].failReason] = (reasons[data[ri].failReason] || 0) + 1;
+    }
+  }
+  var frBody = document.getElementById('fail-reasons-body');
+  if (frBody) {
+    var rkeys = Object.keys(reasons).sort(function(a,b){ return reasons[b]-reasons[a]; }).slice(0,3);
+    if (rkeys.length === 0) {
+      frBody.innerHTML = '<div style="font-size:11px;color:var(--tx3)">Belum ada kandidat gagal</div>';
+    } else {
+      var rhtml = '';
+      for (var rk = 0; rk < rkeys.length; rk++) {
+        rhtml += '<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span style="color:var(--tx2)">' + rkeys[rk] + '</span><span style="font-weight:600;color:var(--fc)">' + reasons[rkeys[rk]] + '</span></div>';
+      }
+      frBody.innerHTML = rhtml;
+    }
+  }
+  var slaBody = document.getElementById('sla-bars-body');
+  if (slaBody) {
+    var shtml = '';
+    for (var stg = 0; stg < stages.length; stg++) {
+      var inStage = [];
+      for (var sd = 0; sd < data.length; sd++) { if (data[sd].tahap === stages[stg]) inStage.push(data[sd]); }
+      if (inStage.length === 0) {
+        shtml += '<div class="sla-row"><div class="sla-label">' + stages[stg] + '</div><div class="sla-track"><div style="flex:1;background:var(--bg);height:100%"></div></div><div class="sla-pct" style="color:var(--tx3)">\u2014</div></div>';
+      } else {
+        var okCnt = 0;
+        for (var sc = 0; sc < inStage.length; sc++) { if (inStage[sc].sla !== 'Terlambat') okCnt++; }
+        var pctOk = Math.round((okCnt / inStage.length) * 100);
+        shtml += '<div class="sla-row"><div class="sla-label">' + stages[stg] + '</div><div class="sla-track"><div class="sla-ok" style="width:' + pctOk + '%"></div><div class="sla-late" style="width:' + (100-pctOk) + '%"></div></div><div class="sla-pct">' + pctOk + '%</div></div>';
+      }
+    }
+    slaBody.innerHTML = shtml;
+  }
+  var lvBody = document.getElementById('level-body');
+  if (lvBody) {
+    var lvls = {};
+    for (var li = 0; li < data.length; li++) { if (data[li].level) lvls[data[li].level] = (lvls[data[li].level]||0)+1; }
+    var lkeys = Object.keys(lvls).sort(function(a,b){ return lvls[b]-lvls[a]; });
+    var lcolors = ['var(--ft)','var(--ft)','var(--ft)','var(--ftd)','#0D3D34','#888'];
+    if (lkeys.length === 0) {
+      lvBody.innerHTML = '<div style="text-align:center;padding:16px;color:var(--tx3);font-size:12px">Belum ada data</div>';
+    } else {
+      var maxL = lvls[lkeys[0]];
+      var lhtml = '';
+      for (var lk = 0; lk < Math.min(lkeys.length,6); lk++) {
+        var lp = Math.round((lvls[lkeys[lk]]/maxL)*100);
+        var lpct = Math.round((lvls[lkeys[lk]]/total)*100);
+        lhtml += '<div class="funnel-row"><div class="fl-label">' + lkeys[lk] + '</div><div class="fl-track"><div class="fl-fill" style="width:' + lp + '%;background:' + (lcolors[lk]||'#888') + '"><span class="fl-n">' + lvls[lkeys[lk]] + '</span></div></div><div class="fl-pct">' + lpct + '%</div></div>';
+      }
+      lvBody.innerHTML = lhtml;
+    }
+  }
+  var badge = document.getElementById('sb-cand-count');
+  if (badge) badge.textContent = total;
+}
+
+/* ---- INIT ---- */
 function initCandidateTable() {
-  // On fresh load, CANDIDATE_DATA is empty — show empty state
   renderCandidateTable(CANDIDATE_DATA);
-  // Update sidebar count
   var badge = document.getElementById('sb-cand-count');
   if (badge) badge.textContent = CANDIDATE_DATA.length;
   refreshDashboard();
 }
 
-// ── REFRESH DASHBOARD FROM REAL DATA ──
-function refreshDashboard() {
-  var data = CANDIDATE_DATA;
-  var total = data.length;
-  var active = data.filter(function(c){ return c.status === 'Sedang Proses'; }).length;
-  var hired  = data.filter(function(c){ return c.status === 'Diterima'; }).length;
-  var failed = data.filter(function(c){ return c.status === 'Gagal'; }).length;
-  var ontime = data.filter(function(c){ return c.sla === 'Tepat Waktu'; }).length;
-  var sla    = total > 0 ? Math.round((ontime/total)*100) : 0;
-
-  // KPI
-  // Update sidebar badge
-  var badge = document.getElementById('sb-cand-count');
-  if (badge) badge.textContent = total;
-  // Update f-count if on candidates page
-  var fc = document.getElementById('f-count');
-  if (fc) fc.textContent = total + ' kandidat';
-
-  var kpiTotal = document.getElementById('kpi-total');
-  if (kpiTotal) kpiTotal.textContent = total || '—';
-  var kpiAct = document.getElementById('kpi-active');
-  if (kpiAct) kpiAct.textContent = active || '—';
-  var kpiSla = document.getElementById('kpi-sla');
-  if (kpiSla) kpiSla.textContent = total > 0 ? sla+'%' : '—';
-  var kpiTth = document.getElementById('kpi-tth');
-  if (kpiTth) kpiTth.innerHTML = total > 0 ? '24 <span style="font-size:14px;font-weight:400">hr</span>' : '— <span style="font-size:14px;font-weight:400">hr</span>';
-
-  // Sub text
-  var sub1 = document.getElementById('kpi-total-sub');
-  if (sub1 && total > 0) { sub1.textContent = active + ' aktif, ' + hired + ' diterima'; sub1.className='kpi-sub up'; }
-  var sub2 = document.getElementById('kpi-sla-sub');
-  if (sub2 && total > 0) { sub2.textContent = ontime + ' dari ' + total + ' tepat waktu'; sub2.className = sla >= 75 ? 'kpi-sub up' : 'kpi-sub dn'; }
-
-  if (total === 0) {
-    // All placeholders already set
-    return;
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    var saved = sessionStorage.getItem('fn_user');
+    if (saved) {
+      CURRENT_USER = JSON.parse(saved);
+      showApp();
+    }
+  } catch(e) {
+    try { sessionStorage.removeItem('fn_user'); } catch(e2) {}
   }
+});
 
-  // Funnel
-  var stages = ['CV Screening','Wawancara HR','Wawancara User 1','Wawancara User 2','Penawaran','Onboarding'];
-  var stageColors = ['#185FA5','#2870B5','var(--ft)','#1A6E5E','#854F0B','#3B6D11'];
-  var stageCounts = stages.map(function(s){
-    return data.filter(function(c){ return c.tahap === s || (stages.indexOf(s) < stages.indexOf(c.tahap)); }).length;
-  });
-  // Simplified: count candidates AT or PAST each stage
-  var stagePast = stages.map(function(s){
-    var sIdx = stages.indexOf(s);
-    return data.filter(function(c){
-      var cIdx = stages.indexOf(c.tahap);
-      return cIdx >= sIdx;
-    }).length;
-  });
-  var maxCount = stagePast[0] || 1;
-  var funnelHtml = '';
-  stages.forEach(function(s, i){
-    var n = stagePast[i];
-    var pct = Math.round((n/maxCount)*100);
-    funnelHtml += '<div class="funnel-row"><div class="fl-label">'+s+'</div>'
-      +'<div class="fl-track"><div class="fl-fill" style="width:'+pct+'%;background:'+stageColors[i]+'"><span class="fl-n">'+n+'</span></div></div>'
-      +'<div class="fl-pct">'+pct+'%</div></div>';
-  });
-  var fHint = document.getElementById('funnel-hint');
-  if (fHint) fHint.textContent = total + ' total kandidat';
-  var fBody = document.getElementById('funnel-body');
-  if (fBody) fBody.innerHTML = fHint ? funnelHtml : '';
-
-  // Fail reasons
-  var reasons = {};
-  data.filter(function(c){ return c.status === 'Gagal'; }).forEach(function(c){
-    reasons[c.failReason || 'Tidak diketahui'] = (reasons[c.failReason || 'Tidak diketahui']||0) + 1;
-  });
-  var sortedReasons = Object.keys(reasons).sort(function(a,b){ return reasons[b]-reasons[a]; }).slice(0,3);
-  var frHtml = sortedReasons.length > 0
-    ? sortedReasons.map(function(r){
-        return '<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span style="color:var(--tx2)">'+r+'</span><span style="font-weight:600;color:var(--fc)">'+reasons[r]+'</span></div>';
-      }).join('')
-    : '<div style="font-size:11px;color:var(--tx3)">Belum ada kandidat gagal</div>';
-  var frBody = document.getElementById('fail-reasons-body');
-  if (frBody) frBody.innerHTML = frHtml;
-
-  // SLA bars
-  var slaStages = stages;
-  var slaHtml = slaStages.map(function(s){
-    var inStage = data.filter(function(c){ return c.tahap === s; });
-    if (!inStage.length) return '<div class="sla-row"><div class="sla-label">'+s+'</div><div class="sla-track"><div style="flex:1;background:var(--bg);height:100%"></div></div><div class="sla-pct" style="color:var(--tx3)">—</div></div>';
-    var ok = inStage.filter(function(c){ return c.sla !== 'Terlambat'; }).length;
-    var pctOk = Math.round((ok/inStage.length)*100);
-    return '<div class="sla-row"><div class="sla-label">'+s+'</div>'
-      +'<div class="sla-track"><div class="sla-ok" style="width:'+pctOk+'%"></div><div class="sla-late" style="width:'+(100-pctOk)+'%"></div></div>'
-      +'<div class="sla-pct">'+pctOk+'%</div></div>';
-  }).join('');
-  var sBody = document.getElementById('sla-bars-body');
-  if (sBody) sBody.innerHTML = slaHtml;
-
-  // Level jabatan
-  var levels = {};
-  data.forEach(function(c){ if (c.level) levels[c.level] = (levels[c.level]||0)+1; });
-  var sortedLevels = Object.keys(levels).sort(function(a,b){ return levels[b]-levels[a]; });
-  var maxL = sortedLevels.length > 0 ? levels[sortedLevels[0]] : 1;
-  var lvColors = ['var(--ft)','var(--ft)','var(--ft)','var(--ftd)','#0D3D34','#888'];
-  var lvHtml = sortedLevels.slice(0,6).map(function(l, i){
-    var n = levels[l];
-    var pct = Math.round((n/maxL)*100);
-    return '<div class="funnel-row"><div class="fl-label">'+l+'</div>'
-      +'<div class="fl-track"><div class="fl-fill" style="width:'+pct+'%;background:'+(lvColors[i]||'#888')+'"><span class="fl-n">'+n+'</span></div></div>'
-      +'<div class="fl-pct">'+Math.round((n/total)*100)+'%</div></div>';
-  }).join('');
-  var lvBody = document.getElementById('level-body');
-  if (lvBody) lvBody.innerHTML = lvHtml || '<div style="text-align:center;padding:16px;color:var(--tx3);font-size:12px">Belum ada data</div>';
-
-  // SLA avg (simplified - show per-stage avg days)
-  var slaAvgData = [
-    {s:'CV Screening', avg:1.5, limit:2},
-    {s:'Wawancara HR', avg:4.2, limit:5},
-    {s:'Wawancara User 1', avg:3.1, limit:5},
-    {s:'Wawancara User 2', avg:3.6, limit:5},
-    {s:'Penawaran', avg:3.8, limit:4},
-    {s:'Onboarding', avg:5.5, limit:10}
-  ];
-  var bottleneck = slaAvgData.reduce(function(max, x){ return (x.avg/x.limit) > (max.avg/max.limit) ? x : max; }, slaAvgData[0]);
-  var slaAvgHtml = slaAvgData.map(function(x){
-    var ratio = Math.min(x.avg/x.limit, 1.15);
-    var over = x.avg > x.limit;
-    var col = over ? '#A32D2D' : x.avg/x.limit > 0.8 ? 'var(--fc)' : 'var(--ft)';
-    return '<div style="display:flex;align-items:center;justify-content:space-between;font-size:11px;margin-bottom:7px">'
-      +'<span style="color:var(--tx2);min-width:110px">'+x.s+'</span>'
-      +'<div style="flex:1;margin:0 8px;height:8px;background:var(--bg);border-radius:3px;overflow:hidden;border:1px solid var(--border)"><div style="height:100%;width:'+Math.min(ratio*100,100)+'%;background:'+col+'"></div></div>'
-      +'<span style="font-weight:600;color:'+col+';min-width:36px;text-align:right">'+x.avg+' hr</span>'
-      +'<span style="color:'+(over?col:'var(--tx3)')+';font-size:9px;margin-left:4px;font-weight:'+(over?'600':'400')+'">'+(over?'Melewati SLA!':'/ '+x.limit+' hr')+'</span>'
-      +'</div>';
-  }).join('');
-  var saBody = document.getElementById('sla-avg-body');
-  if (saBody) saBody.innerHTML = slaAvgHtml;
-  var bbadge = document.getElementById('bottleneck-badge');
-  if (bbadge) { bbadge.textContent = bottleneck.s + ' — ' + bottleneck.avg + ' hari'; bbadge.className = 'badge b-'+(bottleneck.avg > bottleneck.limit ? 'failed' : 'late'); }
-
-  // Tipe & prioritas: sourced from positions grid
-  var posData = [{tipe:'Posisi Baru',n:0},{tipe:'Penggantian',n:0}];
-  document.getElementById('pos-grid') && document.querySelectorAll('.pos-active').forEach(function(el){
-    var meta = el.querySelector('.pos-meta');
-    if (!meta) return;
-    if (meta.textContent.includes('Posisi Baru')) posData[0].n++;
-    else posData[1].n++;
-  });
-  var pb = document.getElementById('kpi-posisi-baru');
-  var pg = document.getElementById('kpi-penggantian');
-  if (pb) pb.textContent = posData[0].n || '—';
-  if (pg) pg.textContent = posData[1].n || '—';
-}
-
-// Init on load — cek session
-;
-
-function saveNewCandidate() {
-  var nama = document.querySelector('#modal-add-candidate input[type="text"]');
-  var gender = document.querySelector('#modal-add-candidate select:nth-of-type(1)');
-  var posisi = document.querySelector('#modal-add-candidate select:nth-of-type(2)');
-  var sumber = document.querySelector('#modal-add-candidate select:nth-of-type(3)');
-  var exp = document.querySelector('#modal-add-candidate input[type="number"]');
-  var company = document.querySelectorAll('#modal-add-candidate input[type="text"]')[1];
-  var level = document.querySelectorAll('#modal-add-candidate select')[3];
-
-  if (!nama || !nama.value.trim()) { alert('Nama lengkap wajib diisi'); return; }
-  if (!posisi || !posisi.value) { alert('Posisi wajib dipilih'); return; }
-  if (!sumber || !sumber.value) { alert('Sumber kandidat wajib dipilih'); return; }
-  if (!level || !level.value) { alert('Level jabatan wajib dipilih'); return; }
-
-  var newCand = {
-    nama: nama.value.trim(),
-    posisi: posisi.value,
-    sumber: sumber.value,
-    gender: gender && gender.value === 'Perempuan' ? 'P' : 'L',
-    exp: (exp && exp.value ? exp.value : '0') + ' thn',
-    company: company && company.value ? company.value : '—',
-    tahap: 'CV Screening',
-    status: 'Sedang Proses',
-    sla: 'Tepat Waktu',
-    date: new Date().toISOString().split('T')[0],
-    docs: '0 file',
-    level: level ? level.value : '—',
-    failReason: ''
-  };
-
-  CANDIDATE_DATA.unshift(newCand);
-  closeModal('modal-add-candidate');
-  // Update sidebar badge
-  var badge = document.getElementById('sb-cand-count');
-  if (badge)
+</script>
+</body>
+</html>
